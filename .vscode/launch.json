@@ -4,11 +4,19 @@
   "configurations": [
     
     {
+      "type": "node",
+      "request": "launch",
+      "name": "Run acorn",
+      "runtimeExecutable": "acorn",
+      "cwd": "${workspaceFolder}",
+      "args": []
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
       "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
+      "url": "http://localhost:58979/"
     },
     {
       "name": "ng test",

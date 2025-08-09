@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:ssr": "ng build --configuration production && ng run telephone-directory.ui:server:production",
+    "serve:ssr": "node dist/telephone-directory.ui/server/main.js"
   },
   "prettier": {
     "overrides": [
@@ -25,14 +27,21 @@
     "@angular/core": "^20.1.0",
     "@angular/forms": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
+    "@angular/platform-server": "^20.1.4",
     "@angular/router": "^20.1.0",
+    "@angular/ssr": "^20.1.5",
+    "alertifyjs": "^1.14.0",
+    "bootstrap": "^5.3.7",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zone.js": "^0.15.1"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^20.1.5",
     "@angular/build": "^20.1.4",
     "@angular/cli": "^20.1.4",
     "@angular/compiler-cli": "^20.1.0",
+    "@types/express": "^5.0.3",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",

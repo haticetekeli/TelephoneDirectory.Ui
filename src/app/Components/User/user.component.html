@@ -1,0 +1,116 @@
+ <div class="container-fluid">
+    <div class="row p-2 bg-info" style="color: crimson;">
+        <div class="col-4 text-start">
+            <button class="btn btn-warning" (click)="openModal()">Kişi Ekle</button>
+        </div>
+        <div class="col-4 text-center" >
+            <h3>Rehber</h3>
+        </div>
+        <div class="col-4 text-end">
+            <button class="btn btn-warning" (click)="logOut()">Çıkış Yap </button>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="text-center">
+                <th>İsim</th>
+                <th>Soyisim</th>
+                <th>Telefon Numarası</th>
+                <th>Email</th>
+                <th class="text-center">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of userDetailList; track $index) {
+
+
+            <tr class="text-center">
+                <td>{{item.firstName}}</td>
+                <td>{{item.lastName}}</td>
+                <td>{{item.phoneNumber}}</td>
+                <td>{{item.email}}</td>
+                <td class="text-center">
+                    <button class="btn btn-primary" (click)="openUpdateModal(item)">Düzenle</button> ||
+                    <button class="btn btn-danger" (click)="deleteUserDetail(item.id)">Sil</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" id="myModal" #myModal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header bg-info">
+                <h4 class="modal-title"
+                    style="color:red; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Kişi Ekle </h4>
+                <button type="button" class="btn-close" (click)="closeModal()"></button>
+            </div>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div>
+                        <div class="col-12" style=" margin-bottom: 10px;">
+                            <input type="text" formControlName="firstName" name="firstName" class="form-control"
+                                placeholder="Ad" style="border: 2px solid black;">
+                        </div>
+                        <div class="col-12" style="margin-bottom: 10px;">
+                            <input type="text" formControlName="lastName" name="lastName" class="form-control"
+                                placeholder="Soyad" style="border: 2px solid black;">
+                        </div>
+                        <div class="col-12" style="margin-bottom: 10px;">
+                            <input type="text" formControlName="phoneNumber" name="phoneNumber" class="form-control"
+                                placeholder="Telefon Numarası " style="border: 2px solid black;">
+                        </div>
+                        <div class="col-12" style="margin-bottom: 10px;">
+                            <input type="text" formControlName="email" name="email" class="form-control"
+                                placeholder="Email" style="border: 2px solid black;">
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="submit" [disabled]="this.userForm.invalid" class="btn btn-primary"
+                        data-bs-dismiss="modal">Ekle</button>
+                    <button type="button" class="btn btn-danger" (click)="closeModal()"
+                        data-bs-dismiss="modal">Kapat</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="updateModal" #updateModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h4 class="modal-title" style="color:red; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Kişiyi Güncelle</h4>
+          <button type="button" class="btn-close" (click)="closeUpdateModal()"></button>
+        </div>
+        <form [formGroup]="updateForm" (ngSubmit)="onUpdateSubmit()">
+          <div class="modal-body">
+            <div class="col-12" style="margin-bottom: 10px;">
+              <input type="text" formControlName="firstName" name="firstName" class="form-control" placeholder="Ad" style="border: 2px solid black;">
+            </div>
+            <div class="col-12" style="margin-bottom: 10px;">
+              <input type="text" formControlName="lastName" name="lastName" class="form-control" placeholder="Soyad" style="border: 2px solid black;">
+            </div>
+            <div class="col-12" style="margin-bottom: 10px;">
+              <input type="text" formControlName="phoneNumber" name="phoneNumber" class="form-control" placeholder="Telefon Numarası" style="border: 2px solid black;">
+            </div>
+            <div class="col-12" style="margin-bottom: 10px;">
+              <input type="text" formControlName="email" name="email" class="form-control" placeholder="Email" style="border: 2px solid black;">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" [disabled]="this.updateForm.invalid" class="btn btn-primary">Güncelle</button>
+            <button type="button" class="btn btn-danger" (click)="closeUpdateModal()">Kapat</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

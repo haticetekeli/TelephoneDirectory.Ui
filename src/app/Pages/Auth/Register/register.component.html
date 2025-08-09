@@ -1,0 +1,47 @@
+<div class="parent">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" id="form">
+    <h1>Kayıt Ol</h1>
+
+    <div class="input-group">
+      <label for="userName">Kullanıcı Adı</label>
+      <input type="text" id="userName" formControlName="userName" />
+      @if (registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched) {
+        <div class="error">
+          Kullanıcı adı gereklidir.
+        </div>
+      }
+    </div>
+
+    <div class="input-group">
+      <label for="firstName">Ad</label>
+      <input type="text" id="firstName" formControlName="firstName" />
+      @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
+        <div class="error">
+          Ad gereklidir.
+        </div>
+      }
+    </div>
+
+    <div class="input-group">
+      <label for="lastName">Soyad</label>
+      <input type="text" id="lastName" formControlName="lastName" />
+      @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
+        <div class="error">
+          Soyad gereklidir.
+        </div>
+      }
+    </div>
+
+    <div class="input-group">
+      <label for="password">Şifre</label>
+      <input type="password" id="password" formControlName="password" />
+      @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+        <div class="error">
+          Şifre gereklidir.
+        </div>
+      }
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Kayıt Ol</button>
+  </form>
+</div>
