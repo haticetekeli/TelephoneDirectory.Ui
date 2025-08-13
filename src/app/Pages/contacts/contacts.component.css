@@ -1,0 +1,54 @@
+.contacts-container {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+.add-contact {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.add-contact input {
+  padding: 8px;
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-contact button {
+  padding: 8px 12px;
+  background-color: #ce38dc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-contact button:hover {
+  background-color: #ce38dc;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+button {
+  padding: 5px 8px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: darkred;
+}

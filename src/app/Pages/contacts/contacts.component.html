@@ -1,0 +1,22 @@
+<div>
+  <h2>Telefon Rehberi</h2>
+
+  <div>
+    <input [(ngModel)]="newContact.name" placeholder="İsim" />
+    <input [(ngModel)]="newContact.phone" placeholder="Telefon" />
+    <button (click)="addContact()">Ekle</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>İsim</th><th>Telefon</th><th>Sil</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts">
+        <td>{{contact.name}}</td>
+        <td>{{contact.phone}}</td>
+        <td><button (click)="deleteContact(contact.id)">Sil</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

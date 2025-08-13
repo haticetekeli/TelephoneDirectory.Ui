@@ -1,14 +1,12 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { routes } from './app.routes';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { customInterceptor } from './Interceptor/custom.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-    provideHttpClient(withInterceptors([customInterceptor])),
+    importProvidersFrom(HttpClientModule, FormsModule)
   ]
 };
