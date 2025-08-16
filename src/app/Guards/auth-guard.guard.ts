@@ -1,19 +1,22 @@
-import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { inject } from '@angular/core';
-import { session } from '../Utils/session';
-import { AccountService } from '../Services/Account/account.service';
+import { CanActivateFn, Router } from '@angular/router';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
+export const AuthGuard: CanActivateFn = () => {
+  const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
+  // Sadece browser'da çalışsın
+  if (isPlatformBrowser(platformId)) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.navigate(['/login']); // login sayfasına at
+      return false;
+    }
+    return true;
+  }
 
-export const authGuard: CanActivateFn =
-  (route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ) => {
-    const router: Router = inject(Router);
-    const accountService = inject(AccountService)
-
-    const protectedRoutes: string[] = ['/user'];
-     return protectedRoutes.includes(state.url) && !accountService.getSession() 
-      ? router.navigate([''])
-      : true;
-  };
+  // SSR tarafında da false dönelim, login'e atsın
+  router.navigate(['/login']);
+  return false;
+};

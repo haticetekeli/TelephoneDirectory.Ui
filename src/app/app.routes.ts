@@ -5,14 +5,15 @@ import { LoginComponent } from './Pages/Auth/login.component';
 import { LayoutComponent } from './Pages/Layout/layout.component';
 import { DashboardComponent } from './Pages/Dashboard/dashboard.component';
 import { RegisterComponent } from './Pages/Auth/Register/register.component';
-import { authGuard } from './Guards/auth-guard.guard';
+import { AuthGuard } from './Guards/auth-guard.guard';
+
 
 
 
 export const routes: Routes = [
 
     { path: '', redirectTo: 'login', pathMatch: 'full', },
-    { path: 'login', component: LoginComponent, canActivate: [authGuard] },
+    { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
     { path: 'register', component: RegisterComponent },
     { path: ' user', component: UserComponent, },
 
@@ -23,7 +24,7 @@ export const routes: Routes = [
             {
                 path: 'user',
                 component: UserComponent,
-                canActivate: [authGuard]
+                canActivate: [AuthGuard]
             }
         ]
     },
