@@ -4,7 +4,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertifyOptions, AlertifyService, MessageType, Position } from '../../../Services/UserDetail/alertify.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -13,9 +12,6 @@ import { Router } from '@angular/router';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
-
-
-
   registerForm: FormGroup;
   RegisterObj: any = {
     "userName": '',
@@ -25,14 +21,8 @@ export class RegisterComponent implements OnInit {
   };
   http = inject(HttpClient);
   router = inject(Router);
-
-
-
-
   ngOnInit(): void {
-
   }
-
   constructor(private fb: FormBuilder, private alertify: AlertifyService) {
     this.registerForm = this.fb.group({
       userName: ['', Validators.required],
@@ -41,8 +31,6 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
-
-
   onSubmit() {
     this.RegisterObj = {
       userName: this.registerForm.get('userName')?.value,
@@ -50,7 +38,7 @@ export class RegisterComponent implements OnInit {
       LastName: this.registerForm.get('lastName')?.value,
       password: this.registerForm.get('password')?.value
     };
-    this.http.post("http://localhost:5055/api/User/Register", this.RegisterObj).subscribe((res: any) => {
+    this.http.post("http://localhost:5192/api/User/Register", this.RegisterObj).subscribe((res: any) => {
       if (res.success) {
         this.alertify.message("Kayıt İşlemi Başarılı  ", {
           messageType: MessageType.Success,

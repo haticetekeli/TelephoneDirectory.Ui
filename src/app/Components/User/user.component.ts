@@ -3,6 +3,7 @@
 import { Component, ElementRef, inject, Inject, OnInit, ViewChild } from '@angular/core';
 import bootstrap from '../../../main.server';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { on } from 'events';
 import { ThisReceiver } from '@angular/compiler';
 import { AlertifyService, MessageType, Position } from '../../Services/UserDetail/alertify.service';
 import { User } from '../../Models/user';
@@ -71,10 +72,7 @@ export class UserComponent implements OnInit {
         inputs[i].value = '';
       }
     }
-      if (empModal) {
-        empModal.style.display = 'none';
-      }
-    }
+    empModal.style.display = 'none';  }
 
 
     openUpdateModal(user: User) {

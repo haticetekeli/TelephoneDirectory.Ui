@@ -1,29 +1,54 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { User } from '../../Models/user';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AccountService {
-  getSession() {
-    throw new Error('Method not implemented.');
-  }
-  private loggedIn = new BehaviorSubject<boolean>(false);
+  private session: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = "http://localhost:7090/api";
+  constructor(private http: HttpClient) { }
 
-  setSession(status: boolean) {
-    this.loggedIn.next(status);
+  setSession(value: boolean) {
+    this.session = value;
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return this.loggedIn.asObservable();
+  getSession(): boolean {
+    return this.session;
   }
 
-  onLogin(loginObj: any): Observable<any> {
-    return this.http.post('http://localhost:5055/api/User/Login', loginObj);
+  onLogin(obj: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/User/Login`, obj);
   }
 
-  onRegister(registerObj: any): Observable<any> {
-    return this.http.post('http://localhost:5055/api/User/Register', registerObj);
+  getAllUserDetails(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/UserDetail/Get-AllUser-details`);
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
+  }
+
+
+  onSubmit(userForm: FormGroup): Observable<any> {
+    if (userForm.valid) {
+      const userData = userForm.value;
+      return this.http.post(`${this.apiUrl}/UserDetail/Add-User-details`, userData);
+    } else {
+      throw new Error("Form is not valid");
+    }
+  }
+
+  deleteUserDetail(userId: number): Observable<any> {
+    const url = `${this.apiUrl}/UserDetail/${userId}`;
+    return this.http.delete(url);
+  }
+
+  updateUserDetail(user: User): Observable<any> {
+    return this.http.put(`${this.apiUrl}/UserDetail/${user.id}`, user);
   }
 }

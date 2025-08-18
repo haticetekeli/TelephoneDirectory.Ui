@@ -6,7 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ContactService {
-  private apiUrl = 'https://localhost:7102/api/Contacts';
+  updateContact(id: any, contact: any) {
+    throw new Error('Method not implemented.');
+  }
+  private apiUrl = 'https://localhost:7090/api/Contacts';
 
   constructor(private http: HttpClient) {}
 

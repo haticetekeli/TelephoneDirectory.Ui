@@ -1,43 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ContactService } from '../../Services/ContactService/contact.services';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Directory } from '../../Models/directory';
 
-@Component({
-  selector: 'app-contacts',
-  standalone: true, // ✅ Standalone
-  imports: [CommonModule, FormsModule], // ✅ ngModel için FormsModule ekledik
-  templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class ContactsComponent implements OnInit {
-  contacts: any[] = [];
-  newContact: any = { name: '', phone: '' };
+export class ContactService {
+  private apiUrl = 'https://localhost:7090/api/contacts';
 
-  constructor(private ContactService: ContactService) { }
+  constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
-    this.loadContacts();
+  getContacts(): Observable<Directory[]> {
+    return this.http.get<Directory[]>(this.apiUrl);
   }
 
-  loadContacts() {
-    this.ContactService.getContacts().subscribe(data => {
-      this.contacts = data;
-    });
+  addContact(contact: any): Observable<any> {
+    return this.http.post(this.apiUrl, contact);
   }
 
-  addContact() {
-    if (!this.newContact.name || !this.newContact.phone) return;
-
-    this.ContactService.addContact(this.newContact).subscribe(() => {
-      this.newContact = { name: '', phone: '' };
-      this.loadContacts();
-    });
+  deleteContact(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  deleteContact(id: number) {
-    this.ContactService.deleteContact(id).subscribe(() => {
-      this.loadContacts();
-    });
+  updateContact(id: number, contact: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, contact);
   }
 }
